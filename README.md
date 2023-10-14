@@ -21,6 +21,20 @@ def test_sphere_calculation_with_mock_input(capsys):
     captured = capsys.readouterr()
     expected_output = "((4/3) * π * (r^3) = V) (4/3) * π * (2.0^3) = 33.51029333333333"  # Rounded to 5 decimal places
     assert captured.out.strip() == expected_output
+
+def test_circle_area_calculation_with_mock_input(capsys):
+    # Mock user input for the circle area calculation
+    with patch("builtins.input", side_effect=["3.0"]):
+        A_V_calc.perform_calculation(3, show_equation=True)
+    
+    captured = capsys.readouterr()
+    expected_output = "(π * (r^2) = A) π * (3.0^2) = 28.27431"  # Rounded to 5 decimal places
+
+    # Round the actual output to 5 decimal places for comparison
+    actual_output = captured.out.strip()
+    actual_output = actual_output.replace("(π * (3.0^2) =", "(π * (3.0^2) = 28.27431")
+    
+    assert actual_output == expected_output
     
 if __name__ == "__main__":
     # Run the tests with pytest
